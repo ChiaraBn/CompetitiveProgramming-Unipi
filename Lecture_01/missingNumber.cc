@@ -20,6 +20,7 @@ int main (void) {
     for (int i = 0; i < t; i++) {
         std:: cout << "size test " << i << ": ";
         std:: cin >> n;
+        array.reserve (n);
 
         for (int j = 0; j < n-1; j++) {
             std:: cin >> elem;
@@ -31,6 +32,7 @@ int main (void) {
         std:: cout << tot_sum - sum << std:: endl;
 
         sum = 0;
+        array.clear ();
     }
 
     return 0;

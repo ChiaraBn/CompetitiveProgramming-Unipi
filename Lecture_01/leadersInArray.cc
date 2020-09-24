@@ -35,6 +35,7 @@ int main (void) {
     for (int i = 0; i < t; i++) {
         std:: cout << "size test " << i << ": ";
         std:: cin >> n;
+        array.reserve (n);
 
         for (int j = 0; j < n; j++) {
             std:: cin >> elem;
