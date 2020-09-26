@@ -24,11 +24,11 @@ void trapping (std:: vector<int> const& array) {
     while (start != end) {
         if (array[start] <= array[end]) {
             water = water + couting (array[start], level);
-            ++ start;
+            start ++;
         }
         else {        
             water = water + couting (array[end], level);
-            -- end;
+            end --;
         }
     }
 
