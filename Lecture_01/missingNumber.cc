@@ -22,7 +22,7 @@ int main (void) {
         std:: cin >> n;
         array.reserve (n);
 
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j < n-1; j++) {
             std:: cin >> elem;
             sum += elem;
             array.push_back(elem);

@@ -12,7 +12,7 @@ void maximum_sum (std:: vector<int> const& array) {
     int sum = array.front();
     int max = sum;
 
-    for (int i = 0; i < array.size(); i++) {
+    for (int i = 1; i < array.size(); i++) {
         if (sum > 0) {
             sum = sum + array[i];
         }
