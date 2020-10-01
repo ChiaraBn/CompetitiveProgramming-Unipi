@@ -12,14 +12,22 @@
 
 
 void leaders (std:: vector<int> const& array) {
-    int max = -1;
+    std:: vector<int> res;
+    res.reserve(array.size());
+    int max = array.back();
 
-    for (int i = 0; i < array.size(); i++) {
+
+    for (int i = array.size()- 1; i >= 0; i--) {
         if (array[i] >= max) {
             max = array[i];
-            std:: cout << max << " ";
+            res.push_back(max);
         }
     }
+    
+    for (auto it = res.rbegin(); it != res.rend(); it++) {
+        std:: cout << *it <<" ";
+    }
+
     std:: cout << std:: endl;
 }
 
