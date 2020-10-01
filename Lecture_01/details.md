@@ -24,8 +24,8 @@ void leaders (std:: vector<int> const& array) {
 
 This function keeps track of the maximum seen so far, starting from the end of the vector, and it compares it to the next element to see.
 
-**Time complexity:** θ(n)
-**Space complexity:** θ(n), the resulting vector
+**Time complexity:** θ(n).
+**Space complexity:** θ(n), the resulting vector.
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/leadersInArray.cc)
 
@@ -57,8 +57,8 @@ void maximum_sum (std:: vector<int> const& array) {
 
 This solution keeps track of the intermediate sum, taking to the account the fact that if it's negative, it has to start from the beginning, in the position _i_, which is the one currently being scanned.
 
-**Time complexity:** θ(n)
-**Space complexity:** constant
+**Time complexity:** θ(n).
+**Space complexity:** constant.
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/kadane.cc)
 
@@ -73,25 +73,25 @@ tot_sum = n * (n+1) / 2;
 ```
 The difference is the missing element.
 
-**Time complexity:** θ(n)
-**Space complexity:** constant
+**Time complexity:** θ(n).
+**Space complexity:** constant.
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/missingNumber.cc)
 
 
-###### [Trapping rain water] (https://practice.geeksforgeeks.org/problems/trapping-rain-water/0)
+###### [Trapping rain water](https://practice.geeksforgeeks.org/problems/trapping-rain-water/0)
 
 With the aid of two indexes, it's possibile to scan the given array, one starting from the beginning and one starting from the end.
 During this loop it keeps track, with a counter, the level of "blank" spaces between the heights of the components, which will be the level of the trapped water.
 The counter starts from the heightest element and goes on, keep score of the maximum.
 
-**Time complexity:** θ(n)
-**Space complexity:** θ(n)
+**Time complexity:** θ(n).
+**Space complexity:** θ(n).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/trappingWater.cc)
 
 
-###### [Sliding window maximum] (http://practice.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k/0)
+###### [Sliding window maximum](http://practice.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k/0)
 
 The solution presented requires a **deque**, which is a double ended queue with one pointer to the front and one to the back of the queue.
 Using this data structure, it's possible to scan the array and keep track of the maximum in each subarray.
@@ -99,7 +99,7 @@ For each iteration, it removes from the head each element whose position is not 
 Then adds the new element in the back, while removing also from the back each element smaller than the new one.
 The maximum in each subarray is in the head of the queue.
 
-**Time complexity:** θ(n), numbers of comparisons
-**Space complexity:** θ(n)
+**Time complexity:** θ(n), numbers of comparisons.
+**Space complexity:** θ(n).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/slidingWindow.cc)
