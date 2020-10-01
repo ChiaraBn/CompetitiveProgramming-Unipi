@@ -25,12 +25,11 @@ void nextLargerElem (std:: vector<int> const &a) {
                 it ++;
             }
 
+            d.push_front(a[i]);
             if (it == d.end()) {
-                d.push_front(a[i]);
                 res.push_back(-1);
             }
             else {
-                d.push_front(a[i]);
                 res.push_back(*it);
             }
         }
