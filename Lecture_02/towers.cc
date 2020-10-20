@@ -40,7 +40,6 @@ int main (void) {
     std:: vector<int> array;
     int n = 0, elem = 0;
 
-    std:: cout << "n bars: ";
     std:: cin >> n;
     array.reserve(n);
 
