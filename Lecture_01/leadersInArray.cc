@@ -16,7 +16,6 @@ void leaders (std:: vector<int> const& array) {
     res.reserve(array.size());
     int max = array.back();
 
-
     for (int i = array.size()- 1; i >= 0; i--) {
         if (array[i] >= max) {
             max = array[i];
@@ -33,15 +32,14 @@ void leaders (std:: vector<int> const& array) {
 
 
 int main (void) {
+    std::ios_base::sync_with_stdio(false);
 
     std:: vector<int> array;
     int t = 0, n = 0, elem = 0;
 
-    std:: cout << "test cases: ";
     std:: cin >> t;
 
     for (int i = 0; i < t; i++) {
-        std:: cout << "size test " << i << ": ";
         std:: cin >> n;
         array.reserve (n);
 

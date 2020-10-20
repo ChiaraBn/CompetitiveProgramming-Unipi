@@ -44,7 +44,6 @@ int main (void) {
     std:: vector<int> vector;
     int t = 0, n = 0, elem = 0, k = 0;
 
-    std:: cout << "test cases: ";
     std:: cin >> t;
 
     for (int i = 0; i < t; i++) {

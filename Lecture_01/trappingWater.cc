@@ -44,11 +44,9 @@ int main (void) {
     std:: vector<int> array;
     int t = 0, n = 0, elem = 0;
 
-    std:: cout << "test cases: ";
     std:: cin >> t;
 
     for (int i = 0; i < t; i++) {
-        std:: cout << "size test " << i <<": ";
         std:: cin >> n;
         array.reserve (n);
 
