@@ -32,14 +32,14 @@ void find_team(std:: vector<team> &v, int n) {
     std:: sort(v.begin(), v.end(), compare);
 
     std:: vector<int>res(2*n);
-    for (auto &team : v) {
-        if (res[team.i] == 0 and res[team.j] == 0) {
-            res[team.i] = team.j;
-            res[team.j] = team.i;
+    for (auto it = v.begin(); it != v.end(); it++) {
+        if (res[(it -> i) -1] == 0 and res[(it -> j) -1] == 0) {
+            res[(it -> i) -1] = it -> j;
+            res[(it -> j) -1] = it -> i;
         }
     }
 
-    for (int i = 1; i <= res.size(); i++) {
+    for (int i = 0; i < res.size(); i++) {
         std:: cout << res[i] << " ";
     }
     std:: cout << std:: endl;
@@ -50,7 +50,6 @@ int main (void) {
     std:: vector<team> array;
     int n = 0, elem = 0;
 
-    std:: cout << "n teams: ";
     std:: cin >> n;
     array.reserve(n* (n-1) /2);
 
