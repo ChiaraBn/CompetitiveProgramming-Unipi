@@ -11,9 +11,9 @@
 
 struct spell {
     int type;           // 0: fire, 1: lightning
-    int damage;
+    long int damage; 
 
-    spell(int t, int d) : type{t}, damage{d} {}
+    spell(int t, long int d) : type{t}, damage{d} {}
 } ;
 
 
@@ -26,7 +26,7 @@ void maxDamage (std:: vector<spell> &v) {
     std:: sort(v.begin(), v.end(), compareDamage);
 
     bool doubleD = false;
-    int tot = 0;
+    long unsigned int tot = 0;
     for (int i = 0; i < v.size(); i++) {
         if (doubleD) {
             tot += (2 * v[i].damage);
@@ -42,7 +42,7 @@ void maxDamage (std:: vector<spell> &v) {
 }
 
 
-void forget (std:: vector<spell> &v, int tp, int d) {
+void forget (std:: vector<spell> &v, int tp, long int d) {
     
     for (auto it = v.begin(); it != v.end(); it++){
         if (it->damage == abs(d) && it->type == tp) {
@@ -57,7 +57,8 @@ int main (void) {
 
     std:: vector<spell> spells;
 
-    int n = 0, tp = 0, d = 0;
+    int n = 0, tp = 0;
+    long int d = 0;
     std:: cin >> n;
     spells.reserve(n);
 
