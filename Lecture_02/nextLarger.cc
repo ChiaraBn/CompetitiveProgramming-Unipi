@@ -7,43 +7,34 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <deque>
 
 
-void nextLargerElem (std:: vector<int> const &a) {
-    std:: vector<int> res;
+void nextLargerElem (std:: vector<long int> const &a) {
+    std:: vector<long int> res;
     res.reserve(a.size());
 
-    std:: deque<int> d;
+    std:: deque<long int> d;
     
-    for (int i = a.size()-1; i >= 0; i--) {
-        if (! d.empty()) {
-            auto it = d.begin();
-
-            while (it != d.end() and a[i] > *it) {
-                it ++;
-            }
-
-            d.push_front(a[i]);
-            if (it == d.end()) {
-                res.push_back(-1);
-            }
-            else {
-                res.push_back(*it);
-            }
+    for (auto it = a.rbegin(); it != a.rend(); it++) {
+        while (d.size() > 0 && *it > d.front()) {
+            d.pop_front();
+        }           
+  
+        if (d.size() == 0) {
+            res.push_back(-1);
         }
         else {
-            d.push_front(a[i]);
-            res.push_back(-1);       
-        }
+            res.push_back(d.front());
+        } 
+
+        d.push_front(*it);
     }
 
-    std:: reverse (res.begin(), res.end());
-    for (int i = 0; i < res.size(); i++) {
-        std:: cout << res[i] << " ";
+    for (auto it = res.rbegin(); it != res.rend(); it++) {
+        printf("%ld ", *it);
     }
-    std:: cout << std:: endl;
+    printf("\n");
 
     res.clear();
     d.clear();
@@ -52,21 +43,22 @@ void nextLargerElem (std:: vector<int> const &a) {
 
 int main (void) {
 
-    std:: vector<int> array;
-    int t = 0, n = 0, elem = 0;
+    std:: vector<long int> array;
+    int t = 0, n = 0;
+    long int elem = 0;
 
-    std:: cin >> t;
+    scanf("%d", &t);
 
     for (int i = 0; i < t; i++) {
-        std:: cin >> n;
+        scanf("%d", &n);
         array.reserve (n);
 
         for (int j = 0; j < n; j++) {
-            std:: cin >> elem;
+            scanf("%ld", &elem);
             array.push_back(elem);
         }
 
-        nextLargerElem(array);
+        nextLargerElem(array);  
         array.clear();
     }
 
