@@ -9,50 +9,48 @@
 #include <unordered_map>
 
 
-void longestSegment (std:: vector<int> const &v, int k) {
+std::pair<int, int> longestSegment (std:: vector<int> const &v, int k) {
 
     std:: unordered_map<int, int> map;
 
-    int i = 0, l = 0;
-    int distinct = 0, maxL = 0;
-    int left = 0, right = 0;
+    int r = 0, l = 0;
+    int maxL = 0, diff = 0;
+    std::pair<int, int> p;
 
-    while (i < v.size()) {
-        
-        if (map.find(v[i]) == map.end()) {
-            map.insert(std::pair<int, int> {v[i], 0});
-            distinct++;
+    while (r < v.size()) {      
+        if (map.find(v[r]) == map.end()) {
+            map.insert(std::pair<int, int> {v[r], 1});
         }
-        map[v[i]]++;
+        else {
+            map.find(v[r]) -> second ++;
+        }
 
-        while (distinct > k) {
+        while (map.size() > k) {
             map[v[l]]--;
-            if (map[v[l]] == 0) 
-                distinct--;
 
-            l++;
-        }
-
-        if (distinct <= k) {
-            if ((i - l)+1 > maxL) {
-                maxL = (i - l) + 1;
-                right = i;
-                left = l;
+            if (map[v[l]] == 0) {
+                map.erase(v[l]);
             }
+            ++l;
         }
 
-        i++;
+        diff = r - l;
+        if (diff >= maxL) {
+            maxL = diff;
+            p = std::make_pair(l, r);
+        }
+        ++r;
     }
 
-    printf ("%d %d\n", left+1, right+1);   
-    map.clear(); 
+    return p;
 }
 
 
 int main (void) {
 
     std:: vector<int> array;
-    int n = 0, k = 0, elem = 0;
+    int n = 0, k = 0;
+    int elem = 0;
 
     scanf("%d", &n);
     scanf("%d", &k);
@@ -63,7 +61,10 @@ int main (void) {
         array.push_back(elem);
     }
 
-    longestSegment (array, k);
+    std::pair<int, int> pair = longestSegment (array, k);
+    printf("%d ", pair.first+1);
+    printf("%d ", pair.second+1);
+    printf("\n");
 
     array.clear();
     return 0;
