@@ -7,7 +7,7 @@
 #include <vector>
 
 
-void findK (std:: vector<int> const &v, int num) {
+void findK (std:: vector<long int> const &v, int num) {
     int k = 0, diff = 0;
 
     for (int i = v.size()-1; i >= 0; i--) {
@@ -32,14 +32,13 @@ void findK (std:: vector<int> const &v, int num) {
 
 int main (void) {
     
-    std:: vector<int> ladder;
-    int t = 0, n = 0, elem = 0;
+    std:: vector<long int> ladder;
+    int t = 0, n = 0;
+    long int elem = 0;
 
-    std:: cout << "test cases: ";
     std:: cin >> t;
 
     for (int i = 0; i < t; i++) {
-        std:: cout << "# rungs: ";
         std:: cin >> n;
         ladder.reserve (n);
 

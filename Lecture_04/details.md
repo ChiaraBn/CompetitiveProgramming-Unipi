@@ -6,10 +6,10 @@ In order to solve this problem, it has been introduced a data structure `spell`,
 
 ```
 struct spell {
-    int type;           
-    int damage;
+    int type;           // 0: fire, 1: lightning
+    unsigned long damage; 
 
-    spell(int t, int d) : type{t}, damage{d} {}
+    spell(int t, unsigned long d) : type{t}, damage{d} {}
 } ;
 ```
 Once this is defined, it's possible to create a **vector** out of this, in order to save all the data of the problem.

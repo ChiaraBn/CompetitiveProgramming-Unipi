@@ -11,34 +11,34 @@
 
 struct spell {
     int type;           // 0: fire, 1: lightning
-    long int damage; 
+    unsigned long damage; 
 
-    spell(int t, long int d) : type{t}, damage{d} {}
+    spell(int t, unsigned long d) : type{t}, damage{d} {}
 } ;
 
 
-bool compareDamage (spell sp1, spell sp2) {
+bool compare (spell sp1, spell sp2) {
     return (sp1.type > sp2.type);
 }
-
+//return (sp1.type > sp2.type && sp1.damage > sp2.damage);
 
 void maxDamage (std:: vector<spell> &v) {
-    std:: sort(v.begin(), v.end(), compareDamage);
+    std:: sort(v.begin(), v.end(), compare);
 
     bool doubleD = false;
-    long unsigned int tot = 0;
-    for (int i = 0; i < v.size(); i++) {
+    unsigned long tot = 0;
+    for (auto it = v.begin(); it != v.end(); it++) {
         if (doubleD) {
-            tot += (2 * v[i].damage);
+            tot += 2 * (it -> damage);
         }
         else {
-            tot += v[i].damage;
+            tot += it -> damage;
         }
 
-        doubleD = (v[i].type == 1)? true: false;
+        doubleD = (it -> type == 1)? true: false;
     }
 
-    std:: cout << tot << std:: endl;
+    printf ("%lu \n", tot);
 }
 
 
@@ -54,17 +54,18 @@ void forget (std:: vector<spell> &v, int tp, long int d) {
 
 
 int main (void) {
+    std::ios_base::sync_with_stdio(false);
 
     std:: vector<spell> spells;
-
     int n = 0, tp = 0;
     long int d = 0;
-    std:: cin >> n;
+
+    scanf ("%d", &n);
     spells.reserve(n);
 
     for (int i = 0; i < n; i++) {
-        std:: cin >> tp;
-        std:: cin >> d;
+        scanf ("%d", &tp);
+        scanf ("%ld", &d);
 
         if (d < 0) 
             forget (spells, tp, d);
