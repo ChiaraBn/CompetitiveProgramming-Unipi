@@ -6,14 +6,15 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <set>
 
 
 struct frog {
     int x;             // position
-    int t;             // tongue
+    int t;            
     int eaten;
 
-    frog(int x, int t, int e) : x{x}, t{t}, eaten{e} {}
+    frog(int x, int l, int e) : x{x}, t{l}, eaten{e} {}
 };
 
 struct mosquito {
@@ -31,43 +32,48 @@ bool compare (frog f1, frog f2) {
 void maxMosquito (std:: vector<frog> &f, std:: vector<mosquito> &m) {
     std:: sort (f.begin(), f.end(), compare);
 
-    for (int i = 0; i < m.size(); i++) {
-        if (m[i].size != -1) {        //mosquito not eaten yet
+    std:: set<int> uneaten_mosquitoes;
+
+    for (auto it = m.begin(); it != m.end(); it++) {
+        if (it -> size != -1) {        //mosquito not eaten yet
 
 
-            m[i].size = -1;
+            it -> size = -1;
         }
     }
 
-    // output n righe con <eaten, lungLingua> per rana i
+    for (auto it = f.begin(); it != f.end(); it++) {
+        printf("%d %d\n", it -> eaten, it -> t);
+    }   
 }
 
 
 int main (void) {
+    std::ios_base::sync_with_stdio(false);
 
     std:: vector<frog> frogs;
     std:: vector<mosquito> mosquitoes;
     
     int n = 0, m = 0;
-    std:: cin >> n;
-    std:: cin >> m;
+    scanf("%d", &n);
+    scanf("%d", &m);
 
     frogs.reserve(n);
     mosquitoes.reserve(m);
 
     int x = 0, value = 0;
     for (int i = 0; i < n; i++) {
-        std:: cin >> x;
-        std:: cin >> value;
+        scanf("%d", &x);
+        scanf("%d", &value);
 
-        frogs.push_back(frog(x,value,0));
+        frogs.push_back(frog(x, value, 0));
     }
 
     for (int i = 0; i < m; i++) {
-        std:: cin >> x;
-        std:: cin >> value;
+        scanf("%d", &x);
+        scanf("%d", &value);
 
-        mosquitoes.push_back(mosquito(x,value));
+        mosquitoes.push_back(mosquito(x, value));
     }
 
     maxMosquito (frogs, mosquitoes);

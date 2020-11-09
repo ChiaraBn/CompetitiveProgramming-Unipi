@@ -5,6 +5,6 @@
 
 
 **Time complexity:** O((n + m) log(n + m)).
-**Space complexity:** O(n).
+**Space complexity:** O(n + m).
 
 The complete [solution.]()
