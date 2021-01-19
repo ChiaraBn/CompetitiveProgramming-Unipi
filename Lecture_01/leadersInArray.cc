@@ -1,56 +1,50 @@
+#include <bits/stdc++.h>
+#include <algorithm>
 
-/* 
- * Given an array of positive integers,
- * return the leaders in the array.
- * An element is a leader if it is greater than or equal to 
- * all the elements to its right side.
- * The rightmost element is always a leader.
- */
-
-#include <iostream>
-#include <vector>
+using namespace std;
 
 
-void leaders (std:: vector<int> const& array) {
+std::vector <int> leaders (int array[], long long n) {
     std:: vector<int> res;
-    res.reserve(array.size());
-    int max = array.back();
+    res.reserve(n);
+    int max = array[n-1];
 
-    for (int i = array.size()- 1; i >= 0; i--) {
+    for (int i = n - 1; i >= 0; i--) {
         if (array[i] >= max) {
             max = array[i];
             res.push_back(max);
         }
     }
     
-    for (auto it = res.rbegin(); it != res.rend(); it++) {
-        std:: cout << *it <<" ";
-    }
-
-    std:: cout << std:: endl;
+    reverse(res.begin(), res.end());
+    return res;
 }
 
-
-int main (void) {
-    std::ios_base::sync_with_stdio(false);
-
-    std:: vector<int> array;
-    int t = 0, n = 0, elem = 0;
-
-    std:: cin >> t;
-
-    for (int i = 0; i < t; i++) {
-        std:: cin >> n;
-        array.reserve (n);
-
-        for (int j = 0; j < n; j++) {
-            std:: cin >> elem;
-            array.push_back(elem);
+int main()
+{
+   long long t;
+   cin >> t;//testcases
+   while (t--)
+   {
+       long long n;
+       cin >> n;//total size of array
+        
+        int a[n];
+        
+        //inserting elements in the array
+        for(long long i =0;i<n;i++){
+            cin >> a[i];
         }
         
-        leaders (array);
-        array.clear();
-    }
+        //calling leaders() function
+        vector<int> v = leaders(a, n);
+        
+        //printing elements of the vector
+        for(auto it = v.begin();it!=v.end();it++){
+            cout << *it << " ";
+        }
+        
+        cout << endl;
 
-    return 0;
+   }
 }

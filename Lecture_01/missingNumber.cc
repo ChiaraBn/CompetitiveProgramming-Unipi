@@ -1,37 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
 
-/*
- * Given an array C of size N-1 and given
- * that there are numbers from 1 to N, with one element
- * missing, find the missing element.
- */
+int MissingNumber(vector<int>& array, int n);
 
-#include <iostream>
-#include <vector>
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
 
+        vector<int> array(n - 1);
+        for (int i = 0; i < n - 1; ++i) cin >> array[i];
 
-int main (void) {
-    std:: vector<int> array;
-    int t = 0, n = 0, elem = 0;
-    int sum = 0, tot_sum = 0;
+        cout << MissingNumber(array, n) << "\n";
+    }
+    return 0;
+}
 
-    std:: cin >> t;
+int MissingNumber(vector<int>& array, int n) {
+    int tot_sum = 0, sum = 0;
 
-    for (int i = 0; i < t; i++) {
-        std:: cin >> n;
-        array.reserve (n);
-
-        for (int j = 0; j < n-1; j++) {
-            std:: cin >> elem;
-            sum += elem;
-            array.push_back(elem);
-        }
-
-        tot_sum = n * (n+1) / 2;
-        std:: cout << tot_sum - sum << std:: endl;
-
-        sum = 0;
-        array.clear ();
+    for (int j = 0; j < n-1; j++) {
+        sum += array[j];
+        array.push_back(array[j]);
     }
 
-    return 0;
+    tot_sum = n * (n+1) / 2;
+    return (tot_sum - sum);
 }

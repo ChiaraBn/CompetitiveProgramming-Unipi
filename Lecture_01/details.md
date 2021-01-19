@@ -7,22 +7,24 @@ In order to implement this problem, it was necessary to use a dynamic data struc
 After the user has filled the array, it just takes _linear time_ to produce in output all the **leaders**.
 
 ```
-void leaders (std:: vector<int> const& array) {
+std::vector <int> leaders (int array[], long long n) {
     std:: vector<int> res;
-    res.reserve(array.size());
-    int max = array.back();
+    res.reserve(n);
+    int max = array[n-1];
 
-
-    for (int i = array.size()- 1; i >= 0; i--) {
+    for (int i = n - 1; i >= 0; i--) {
         if (array[i] >= max) {
             max = array[i];
             res.push_back(max);
         }
     }
+    
+    reverse(res.begin(), res.end());
+    return res;
 }
 ```
 
-This function keeps track of the maximum seen so far, starting from the end of the vector, and it compares it to the next element to see.
+This function keeps track of the maximum seen so far, starting from the end of the array, and it compares it to the next element next to it.
 
 **Time complexity:** θ(n).
 **Space complexity:** θ(n), the resulting vector.
@@ -35,23 +37,24 @@ The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Un
 Taking a **vector** as input, it takes _linear time_ to keep track of the intermediate sums, calcolated so far.
 
 ```
-void maximum_sum (std:: vector<int> const& array) {
-    int sum = array.front();
+int maxSubarraySum(int arr[], int n){
+    
+    int sum = arr[0];
     int max = sum;
 
-    for (int i = 1; i < array.size(); i++) {
+    for (int i = 1; i < n; i++) {
         if (sum > 0) {
-            sum = sum + array[i];
+            sum = sum + arr[i];
         }
         else {
-            sum = array[i];
+            sum = arr[i];
         }
 
         if (sum > max) {
             max = sum;
         }        
     }
-    std:: cout << max << std:: endl;
+    return max;
 }
 ```
 

@@ -1,51 +1,45 @@
-/*
- * Given an array on N integers, find the
- * contigous sub-array with the maximum sum.
- * Print the maximum sum.
- */
-
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h>
+using namespace std;
 
 
-void maximum_sum (std:: vector<int> const& array) {
-    int sum = array.front();
+// Function to find subarray with maximum sum
+// arr: input array
+// n: size of array
+int maxSubarraySum(int arr[], int n){
+    
+    int sum = arr[0];
     int max = sum;
 
-    for (int i = 1; i < array.size(); i++) {
+    for (int i = 1; i < n; i++) {
         if (sum > 0) {
-            sum = sum + array[i];
+            sum = sum + arr[i];
         }
         else {
-            sum = array[i];
+            sum = arr[i];
         }
 
         if (sum > max) {
             max = sum;
         }        
     }
-    std:: cout << max << std:: endl;
+    return max;
 }
-
-int main (void) {
-
-    std:: vector<int> array;
-    int t = 0, n = 0, elem = 0;
-
-    std:: cin >> t;
-
-    for (int i = 0; i < t; i++) {
-        std:: cin >> n;
-        array.reserve (n);
-
-        for (int j = 0; j < n; j++) {
-            std:: cin >> elem;
-            array.push_back (elem);
-        }
+    
+int main()
+{
+    int t,n;
+    
+    cin>>t; //input testcases
+    while(t--) //while testcases exist
+    {
         
-        maximum_sum (array);
-        array.clear ();
+        cin>>n; //input size of array
+        
+        int a[n];
+        
+        for(int i=0;i<n;i++)
+            cin>>a[i]; //inputting elements of array
+        
+        cout << maxSubarraySum(a, n) << endl;
     }
-
-    return 0;
 }

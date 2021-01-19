@@ -1,13 +1,11 @@
-/*
- * Given an array of N non-negative integers
- * representing the height of blocks at index i as Ai,
- * compute how much water can be trapped in between blocks.
- */
+#include<bits/stdc++.h>
 
-#include <iostream>
-#include <vector>
-#include <cassert>
+using namespace std;
 
+
+// function to find the trapped water in between buildings
+// arr: input array
+// n: size of array
 int couting (int elem, int& level) {
     if (elem > level) {
         level = elem;
@@ -17,17 +15,17 @@ int couting (int elem, int& level) {
     return count;
 }
 
-void trapping (std:: vector<int> const& array) {
-    int start = 0, end = array.size() - 1;
+int trappingWater(int arr[], int n){
+    int start = 0, end = n - 1;
     int level = 0, water = 0;
 
     while (start != end) {
-        if (array[start] <= array[end]) {
-            water = water + couting (array[start], level);
+        if (arr[start] <= arr[end]) {
+            water = water + couting (arr[start], level);
             start ++;
         }
         else {        
-            water = water + couting (array[end], level);
+            water = water + couting (arr[end], level);
             end --;
         }
     }
@@ -36,28 +34,32 @@ void trapping (std:: vector<int> const& array) {
         water = 0;
     }
 
-    std:: cout << water << std:: endl;
+    return water;
 }
 
-int main (void) {
-
-    std:: vector<int> array;
-    int t = 0, n = 0, elem = 0;
-
-    std:: cin >> t;
-
-    for (int i = 0; i < t; i++) {
-        std:: cin >> n;
-        array.reserve (n);
-
-        for (int j = 0; j < n; j++) {
-            std:: cin >> elem;
-            array.push_back (elem);
+int main(){
+    
+    int t;
+    //testcases
+    cin >> t;
+    
+    while(t--){
+        int n;
+        
+        //size of array
+        cin >> n;
+        
+        int a[n];
+        
+        //adding elements to the array
+        for(int i =0;i<n;i++){
+            cin >> a[i];            
         }
         
-        trapping (array);
-        array.clear ();
+        //calling trappingWater() function
+        cout << trappingWater(a, n) << endl;
+        
     }
-
+    
     return 0;
 }
