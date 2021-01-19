@@ -1,22 +1,14 @@
-/* 
- * Given an array of size N having distinct elements,
- * find for each the next greater element in the array,
- * in order of their appearance.
- * If no such element exists, return -1.
- */
+#include<bits/stdc++.h>
+#include <algorithm>
+using namespace std;
 
-#include <iostream>
-#include <vector>
-#include <deque>
-
-
-void nextLargerElem (std:: vector<long int> const &a) {
-    std:: vector<long int> res;
-    res.reserve(a.size());
+vector<long long> nextLargerElement(vector<long long> arr, int n){
+    std:: vector<long long> res;
+    res.reserve(arr.size());
 
     std:: deque<long int> d;
     
-    for (auto it = a.rbegin(); it != a.rend(); it++) {
+    for (auto it = arr.rbegin(); it != arr.rend(); it++) {
         while (d.size() > 0 && *it > d.front()) {
             d.pop_front();
         }           
@@ -31,36 +23,27 @@ void nextLargerElem (std:: vector<long int> const &a) {
         d.push_front(*it);
     }
 
-    for (auto it = res.rbegin(); it != res.rend(); it++) {
-        printf("%ld ", *it);
-    }
-    printf("\n");
-
-    res.clear();
-    d.clear();
+    reverse(res.begin(), res.end());
+    return res;
 }
 
-
-int main (void) {
-
-    std:: vector<long int> array;
-    int t = 0, n = 0;
-    long int elem = 0;
-
-    scanf("%d", &t);
-
-    for (int i = 0; i < t; i++) {
-        scanf("%d", &n);
-        array.reserve (n);
-
-        for (int j = 0; j < n; j++) {
-            scanf("%ld", &elem);
-            array.push_back(elem);
-        }
-
-        nextLargerElem(array);  
-        array.clear();
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        
+        int n;
+        cin>>n;
+        vector<long long> arr(n);
+        for(int i=0;i<n;i++)
+            cin>>arr[i];
+        
+        
+        vector <long long> res = nextLargerElement(arr, n);
+        for (long long i : res) cout << i << " ";
+        cout<<endl;
     }
-
-    return 0;
+	return 0;
 }

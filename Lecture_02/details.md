@@ -7,8 +7,8 @@ Starting from the end of the array, first it pushes the last element in the fron
 Then this solution compares the new element in the array with each item in the front of the queue, until it finds a bigger one, or the end of it is reached.
 The new element it's pushed to the front of the queue and, if a bigger one exists then this will be pushed in the resulting array, otherwise it means that it is the maximum so far, so its result would be -1.
 
-**Time complexity:** θ(n).
-**Space complexity:** θ(n).
+**Time complexity:** O(N).
+**Space complexity:** O(N).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_02/nextLarger.cc)
 
