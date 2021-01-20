@@ -29,7 +29,6 @@ void findK (std:: vector<long int> const &v, int num) {
     std:: cout << "Case " << num << ": " << k << std:: endl;
 }
 
-
 int main (void) {
     
     std:: vector<long int> ladder;

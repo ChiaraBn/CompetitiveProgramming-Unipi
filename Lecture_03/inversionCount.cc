@@ -4,7 +4,6 @@
  * Note that an inversion occurs if i < j and A[i] > A[j].
  */
 
-
 #include <iostream>
 #include <vector>
 
@@ -45,7 +44,6 @@ long int merge (std:: vector<int> &left, std:: vector<int> &right,
     return inversions;
 } 
 
-
 long int mergeSort (std:: vector<int> &v) {
     if (v.size() <= 1) 
         return 0;
@@ -65,7 +63,6 @@ long int mergeSort (std:: vector<int> &v) {
 
     return lCount + rCount + merge(left, right, v);
 }
-
 
 int main (void) {
     std:: vector<int> array;
