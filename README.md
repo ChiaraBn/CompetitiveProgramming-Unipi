@@ -20,4 +20,11 @@ Overview: <br>
 | Lecture_03       | [Inversion count](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_03/inversionCount.cc)| [Descriptions](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_03/details.md)|
 |                  | [The monkey and the oiled bamboo](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_03/monkey.cc) | |
 |                  |                  |                     |
+| Lecture_04       |
+|                  |                  |                     |
+| Lecture_05       |
+|
+|Lecture_06 | [Maximum path sum](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_06/maxPathSum.cc) | [Descriptions](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_06/details.md) |
+|           | [Longest k-good segment](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_06/longestSegment.cc) |           |
+|                  |                  |                     |
 |
