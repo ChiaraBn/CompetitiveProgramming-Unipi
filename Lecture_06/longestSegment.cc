@@ -1,59 +1,48 @@
-/*
- * Given an array of n integers, a segment is called 'k-good'
- * if it contains no more than k different values.
- * Find any longest k-good segment.
- */
-
 #include <iostream>
 #include <vector>
 #include <unordered_map>
 
+void findK (std:: vector<int> const&a, int k) {
 
-std::pair<int, int> longestSegment (std:: vector<int> const &v, int k) {
+    int l = 0, r = 0, max = 0;
+    std::unordered_map<int, int> map;       // <int, int> = <element, occurences>
+    std::pair<int, int> final;
 
-    std:: unordered_map<int, int> map;
-
-    int r = 0, l = 0;
-    int maxL = 0, diff = 0;
-    std::pair<int, int> p;
-
-    while (r < v.size()) {      
-        if (map.find(v[r]) == map.end()) {
-            map.insert(std::pair<int, int> {v[r], 1});
+    while (r < a.size()) {
+        if (map.find(a[r]) == map.end()) {
+            map.insert(std::make_pair(a[r], 1));
         }
         else {
-            map.find(v[r]) -> second ++;
+            map[a[r]]++;
         }
 
         while (map.size() > k) {
-            map[v[l]]--;
+            map[a[l]]--;
 
-            if (map[v[l]] == 0) {
-                map.erase(v[l]);
+            if (map[a[l]] == 0) {
+                map.erase(a[l]);
             }
-            ++l;
+            l++;
+        }
+        if ((r - l) >= max) {
+            max = (r - l);
+            final = std::make_pair(l,r);
         }
 
-        diff = r - l;
-        if (diff >= maxL) {
-            maxL = diff;
-            p = std::make_pair(l, r);
-        }
-        ++r;
+        r++;
     }
 
-    return p;
+    printf ("%d %d\n", final.first+1, final.second+1);
 }
 
-
 int main (void) {
-
+    
     std:: vector<int> array;
-    int n = 0, k = 0;
-    int elem = 0;
+    int n = 0, k = 0, elem = 0;
 
     scanf("%d", &n);
     scanf("%d", &k);
+
     array.reserve(n);
 
     for (int i = 0; i < n; i++) {
@@ -61,10 +50,7 @@ int main (void) {
         array.push_back(elem);
     }
 
-    std::pair<int, int> pair = longestSegment (array, k);
-    printf("%d ", pair.first+1);
-    printf("%d ", pair.second+1);
-    printf("\n");
+    findK (array, k);
 
     array.clear();
     return 0;
