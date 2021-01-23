@@ -1,52 +1,43 @@
-/*
- * Original problem at:
- * https://codeforces.com/problemset/problem/313/B?locale=en
- */
-
-
 #include <iostream>
 #include <vector>
 #include <string>
 
-using namespace std;
+void find (std:: string const&s, std::vector<std::pair<int,int>> const &q) {
 
-
-void find_solution (string const &seq, vector<pair<int, int>> const &q) {
-    vector<int> b (seq.length()+1);
-    b[0] = 0;
-    for (int i = 1; i < seq.length(); i++) {
-        b[i] = (seq[i] == seq[i-1])? b[i-1] + 1 : b[i-1];
-    }
-    b[seq.length()] = b[(seq.length()) - 1];
-
-    for (int j = 0; j < q.size(); j++) {
-        cout << b[q[j].second-1] - b[q[j].first-1] << endl;        
+    std::vector<int> count(s.length(),0);
+    
+    // prefix sum into the count vector
+    for (int i = 1; i < s.length(); i++) {
+        if (s[i] == s[i-1])
+            count[i] = count[i-1]+1;
+        else
+            count[i] = count[i-1];
     }
 
-    b.clear();
+    for (int i = 0; i < q.size(); i++) {
+        std::cout << count[q[i].second-1] - count[q[i].first -1] << std::endl;
+    }
 }
 
+int main(void) {
 
-int main (void) {
-    std::ios_base::sync_with_stdio(false);
-
+    std:: string s;
+    std:: vector<std::pair<int, int>> queries;
     int m = 0;
-    string seq;
-    vector<pair<int, int>> queries;
 
-    cin >> seq;
-    cin >> m;
+    std:: cin >> s;
+    std:: cin >> m;
     queries.reserve(m);
 
     int l = 0, r = 0;
-    for (int i = 0; i < m; i++) {
-        cin >> l >> r;
-        queries.push_back(make_pair(l,r));
+    for (int i = 0; i < m; i++){
+        std:: cin >> l >> r;
+        queries.push_back(std::make_pair(l,r));
     }
 
-    find_solution(seq, queries);
-    queries.clear();
-    seq.clear();
+    find (s, queries);
 
+    s.clear();
+    queries.clear();
     return 0;
 }
