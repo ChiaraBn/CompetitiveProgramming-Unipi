@@ -7,8 +7,8 @@ Starting from the end of the array, first it pushes the last element in the fron
 Then this solution compares the new element in the array with each item in the front of the queue, until it finds a bigger one, or the end of it is reached.
 The new element it's pushed to the front of the queue and, if a bigger one exists then this will be pushed in the resulting array, otherwise it means that it is the maximum so far, so its result would be -1.
 
-**Time complexity:** O(N).
-**Space complexity:** O(N).
+**Time complexity:** O(n).<br>
+**Space complexity:** O(n).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_02/nextLarger.cc)
 
@@ -19,7 +19,7 @@ The following solution scans the input array of different lenghts, to find the d
 First of all, the vector must be sorted in an increasing order, so the same elements would be contiguous.
 Then, with some temporary variables it's possible to keep track of the count of similar numbers, which will be the heights of the towers, meanwhile the diverse ones will be the total number of towers.
 
-**Time complexity:** θ(n).
+**Time complexity:** θ(n).<br>
 **Space complexity:** θ(n).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_02/towers.cc)
@@ -32,7 +32,7 @@ For this problem it was necessary to create a customized data structure `team`, 
 The input vector of data must be sorted in an decresing order, by strength, so it's possible to create the most powerful couples first.
 Then, the solution scans the vector and it associates, for each person, the first team mate available, with the highest strength possible.
 
-**Time complexity:** θ(n).
+**Time complexity:** θ(n).<br>
 **Space complexity:** θ(n).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_02/teamMember.cc)

@@ -5,7 +5,7 @@
 The solution computes a **post-order** visit of the tree, meanwhile keeping track of the maximum sum seen so far.
 Once the visit of the tree is done, it computes the sum going back up through the nodes.
 
-**Time complexity:** O(n).
+**Time complexity:** O(n). <br>
 **Space complexity:** O(Height of the tree).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_06/maxPathSum.cc)
@@ -18,7 +18,7 @@ Starting at the first index of the array, with both of the pointers, it has to b
 Otherwise it increases the number of the **distinct** element seen so far, thus the size of the map.
 If this number is bigger than **k**, it means that the lenght of the segment must be reduced: the left index increases and the occurrences of it decrease.
 
-**Time complexity:** θ(n).
+**Time complexity:** θ(n).<br>
 **Space complexity:** O(n), the size of the hash table.
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_06/longestSegment.cc)

@@ -26,7 +26,7 @@ std::vector <int> leaders (int array[], long long n) {
 
 This function keeps track of the maximum seen so far, starting from the end of the array, and it compares it to the next element next to it.
 
-**Time complexity:** θ(n).
+**Time complexity:** θ(n).<br>
 **Space complexity:** θ(n), the resulting vector.
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/leadersInArray.cc)
@@ -60,7 +60,7 @@ int maxSubarraySum(int arr[], int n){
 
 This solution keeps track of the intermediate sum, taking to the account the fact that if it's negative, it has to start from the beginning, in the position _i_, which is the one currently being scanned.
 
-**Time complexity:** θ(n).
+**Time complexity:** θ(n).<br>
 **Space complexity:** constant.
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/kadane.cc)
@@ -76,7 +76,7 @@ tot_sum = n * (n+1) / 2;
 ```
 The difference is the missing element.
 
-**Time complexity:** θ(n).
+**Time complexity:** θ(n).<br>
 **Space complexity:** constant.
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/missingNumber.cc)
@@ -88,7 +88,7 @@ With the aid of two indexes, it's possibile to scan the given array, one startin
 During this loop it keeps track, with a counter, the level of "blank" spaces between the heights of the components, which will be the level of the trapped water.
 The counter starts from the heightest element and goes on, keep score of the maximum.
 
-**Time complexity:** θ(n).
+**Time complexity:** θ(n).<br>
 **Space complexity:** θ(n).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/trappingWater.cc)
@@ -102,7 +102,7 @@ For each iteration, it removes from the head each element whose position is not 
 Then adds the new element in the back, while removing also from the back each element smaller than the new one.
 The maximum in each subarray is in the head of the queue.
 
-**Time complexity:** θ(n), numbers of comparisons.
+**Time complexity:** θ(n), numbers of comparisons.<br>
 **Space complexity:** θ(n).
 
 The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Unipi/blob/master/Lecture_01/slidingWindow.cc)
