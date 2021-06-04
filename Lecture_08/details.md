@@ -2,7 +2,11 @@
 
 ###### [Update the array](https://www.spoj.com/problems/UPDATEIT/)
 
-Starting from an array A[n] of integers, initilizated at 0, it is possible to solve efficiently this problem using a temporary vector B, which collects the results of the updates. <br>
+Starting from an array A[n] of integers, initilizated at 0, it is possible to solve efficiently by transforming it into a **Fenwick Tree**. <br>
+This is an implicit data structure which supports queries such as: <br>
+- `sum(i)` : which is the static prefix sum up until the position `i`.
+- `add(i, val)` : which is the update of the element in the position `i` by adding the value `val`.
+
 Each **update** is formed upon a structure as follow:
 
 ```
@@ -18,8 +22,8 @@ struct update {
         {}
 };
 ```
-The idea is add **+val** at the initial position of every query and then subtract **-val** at the next position after the final one.<br>
-In this way, the array A is used for the **prefix sum** upon the temporary vector B, in order to garantee that the answer to the i-th query would just be accessing to A[i].
+The idea is to add `+val` at the initial position of every query, given by `l`,  and then subtract `-val` at the next position given by `r`. <br>
+To answer the queries it is enough to compute the sum up until the position indicated by the query itself.
 
 **Time complexity:** θ((u+q) log n) <br>
 **Space complexity:** O(n).

@@ -3,24 +3,22 @@
 
 ###### [Leaders in un array](https://practice.geeksforgeeks.org/problems/leaders-in-an-array/0)
 
-In order to implement this problem, it was necessary to use a dynamic data structure such as a **vector**.
+In order to implement this problem, it was necessary to use a dynamic data structure such as a **vector**. <br>
 After the user has filled the array, it just takes _linear time_ to produce in output all the **leaders**.
 
 ```
-std::vector <int> leaders (int array[], long long n) {
-    std:: vector<int> res;
-    res.reserve(n);
-    int max = array[n-1];
+vector<int> leaders(int a[], int n) {
+    vector<int> l;
 
-    for (int i = n - 1; i >= 0; i--) {
-        if (array[i] >= max) {
-            max = array[i];
-            res.push_back(max);
+    int max = a[n-1];
+    for (int i = n-1; i >= 0; i--) {
+        if (a[i] >= max) {
+            l.push_back(a[i]);
+            max = a[i];
         }
     }
-    
-    reverse(res.begin(), res.end());
-    return res;
+    reverse(l.begin(), l.end());
+    return l;
 }
 ```
 
@@ -68,7 +66,7 @@ The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Un
 
 ###### [Missing number](https://practice.geeksforgeeks.org/problems/missing-number-in-array/0)
 
-In order to find the missing element within an array, it must be compared the total sum of the elements with the sum that would come off if no element was missing.
+In order to find the missing element within an array, it must be compared the total sum of the elements with the sum that would come off if no element was missing. <br>
 The correct sum would be:  
 
 ```
@@ -84,8 +82,8 @@ The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Un
 
 ###### [Trapping rain water](https://practice.geeksforgeeks.org/problems/trapping-rain-water/0)
 
-With the aid of two indexes, it's possibile to scan the given array, one starting from the beginning and one starting from the end.
-During this loop it keeps track, with a counter, the level of "blank" spaces between the heights of the components, which will be the level of the trapped water.
+With the aid of two indexes, it's possibile to scan the given array, one starting from the beginning and one starting from the end. <br>
+During this loop it keeps track, with a counter, the level of "blank" spaces between the heights of the components, which will be the level of the trapped water. <br>
 The counter starts from the heightest element and goes on, keep score of the maximum.
 
 **Time complexity:** θ(n).<br>
@@ -97,9 +95,9 @@ The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Un
 ###### [Sliding window maximum](http://practice.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k/0)
 
 The solution presented requires a **deque**, which is a double ended queue with one pointer to the front and one to the back of the queue.
-Using this data structure, it's possible to scan the array and keep track of the maximum in each subarray.
-For each iteration, it removes from the head each element whose position is not in the range `< i - k `.
-Then adds the new element in the back, while removing also from the back each element smaller than the new one.
+Using this data structure, it's possible to scan the array and keep track of the maximum in each subarray. <br>
+For each iteration, it removes from the head each element whose position is not in the `range < i - k `. <br>
+Then adds the new element in the back, while removing also from the back each element smaller than the new one. <br>
 The maximum in each subarray is in the head of the queue.
 
 **Time complexity:** θ(n), numbers of comparisons.<br>
