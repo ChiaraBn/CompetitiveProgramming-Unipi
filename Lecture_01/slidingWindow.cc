@@ -1,11 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 vector <int> max_of_subarrays(int *arr, int n, int k) {
-    std:: deque<int> deque;
-    std:: vector<int> res;
-
+    vector<int> res;
+    deque<int> deque;
+    
     for (int i = 0; i < n; i++) {
         if (! deque.empty()) {
             if (deque.front() <= i - k) {
@@ -23,6 +22,7 @@ vector <int> max_of_subarrays(int *arr, int n, int k) {
             res.push_back(arr[deque.front()]);
         }
     }
+    
     return res;
 }
 
@@ -39,7 +39,7 @@ int main() {
 	    int arr[n];
 	    for(int i = 0;i<n;i++) 
 	        cin >> arr[i];
-	    
+
 	    vector <int> res = max_of_subarrays(arr, n, k);
 	    for (int i = 0; i < res.size (); i++) 
 	        cout << res[i] << " ";
@@ -48,4 +48,4 @@ int main() {
 	}
 	
 	return 0;
-}  
+}

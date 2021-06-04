@@ -89,34 +89,28 @@ int main() {
 }
 
 int compute (Node* root, int &sum) {
-    // post order visit
-    if (root != NULL) {
-        int left = compute (root->left, sum);
-        int right = compute (root->right, sum);
-
-        if (left == INT_MIN && right == INT_MIN) {
-            return root -> data;
-        }
-
-        if (left != INT_MIN && right != INT_MIN) {
-            if (sum < left + right + root->data) {
-                sum = left + right + root->data;
-            }
-            return max(left, right) + root->data;
-        }
-
-        if (left == INT_MIN)
-            return right + root->data;
-        else 
-            return left + root->data;
+    if (root == NULL) {
+        return 0;
     }
+    if (!root->left && !root->right){
+        return root->data;
+    }
+    int left = compute (root->left, sum);
+    int right = compute (root->right, sum);
 
-    //end of the tree
-    return INT_MIN;
+    if (root->left && root->right) {
+        sum = max(sum, left + right + root->data);
+        return max (left, right) + root->data;
+    }
+    if (!root->left) {
+        return (right + root->data);
+    }
+    else {
+        return (left + root->data);
+    }
 }
 
-int maxPathSum(Node* root)
-{ 
+int maxPathSum(Node* root) {
     int max = INT_MIN;
     compute (root, max);
     return max;

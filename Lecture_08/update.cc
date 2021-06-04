@@ -1,74 +1,58 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+#include "../Utils/FenwickTree.cc"
+using namespace std;
 
 struct update {
-    int l;
-    int r;
-    int val;
+    int l, r, val;
 
-    update (int left, int right, int val) : 
-        l{left}, 
-        r{right}, 
-        val{val} 
-        {}
+    update(int l, int r, int val) : l{l}, r{r}, val{val} {}
 };
 
-void update_array (int n, std::vector<update> const&u, std::vector<int> const&q) {
-    std::vector<int> a (n, 0);
-    std::vector<int> b (n, 0);
+void update_array (int n, vector<update> const& ups, vector<int> const &qs) {
+    FenwickTree ft = FenwickTree(n);
 
-    // dynamic prefix sum
-    for (int i = 0; i < u.size(); i++) {
-        b[u[i].l] += u[i].val;
-        b[u[i].r+1] -= u[i].val;
+    for (int i = 0; i < ups.size(); i++) {
+        ft.add(ups[i].l, ups[i].val);
+        ft.add(ups[i].r + 1, (ups[i].val*(-1)));
     }
 
-    a[0] = b[0];
-    for (int i = 1; i < n; i++) {
-        a[i] = a[i-1] + b[i];
+    for (int i = 0; i < qs.size(); i++) {
+        int sum = ft.sum(qs[i]);
+        cout << sum << endl;
     }
-
-    for (int i = 0; i < q.size(); i++) {
-        std::cout << a[q[i]] << std::endl;
-    }
-
-    a.clear();
-    b.clear();
 }
 
-int main (void) {
-    std::ios_base::sync_with_stdio(false);
-
-    std::vector<int> queries;
-    std::vector<update> updates;
+int main() {
 
     int t = 0, n = 0, u = 0, q = 0;
     int l = 0, r = 0, val = 0;
 
-    std::cin >> t;
-    for (int i = 0; i < t; i++) {
-        std::cin >> n >> u;
-        updates.reserve(u);
+    cin >> t;
+    vector<update> ups;
+    vector<int> qs;
 
-        for (int j = 0; j < u; j++) {
-            std::cin >> l >> r >> val;
-            update up = update (l, r, val);
-            updates.push_back(up);
+    while (t > 0) {
+        cin >> n >> u;
+        ups.reserve(u);
+
+        for (int i = 0; i < u; i++) {
+            cin >> l >> r >> val;
+            ups.push_back(update(l,r,val));
         }
 
-        std::cin >> q;
-        queries.reserve(q);
-        int elem = 0;
-        for (int j = 0; j < q; j++){
-            std::cin >> elem;
-            queries.push_back(elem);
+        cin >> q;
+        qs.reserve(q);
+        for (int i = 0; i < q; i++) {
+            cin >> val;
+            qs.push_back(val);
         }
 
-        update_array (n, updates, queries);
+        update_array (n, ups, qs);
 
-        queries.clear();
-        updates.clear();
+        ups.clear();
+        qs.clear();
+        t--;
     }
-    
+
     return 0;
 }

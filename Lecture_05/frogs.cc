@@ -1,83 +1,127 @@
-/*
- * Original problem at:
- * https://codeforces.com/contest/609/problem/F?locale=en
- */
-
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 #include <algorithm>
-#include <set>
-
+using namespace std;
 
 struct frog {
-    int x;             // position
-    int t;            
-    int eaten;
+    int64_t x, end, i, eaten;
 
-    frog(int x, int l, int e) : x{x}, t{l}, eaten{e} {}
+    frog(int64_t x, int64_t end, int64_t i, int64_t e) : 
+    x{x}, end{end}, i{i}, eaten{e} {}
 };
 
 struct mosquito {
-    int p;             // position
-    int size;
+    int64_t p;
+    int64_t b;
 
-    mosquito(int p, int s) : p{p}, size{s} {}
+    mosquito(int64_t p, int64_t b) : p{p}, b{b} {}
 };
-
 
 bool compare (frog f1, frog f2) {
     return (f1.x < f2.x);
 }
 
-void maxMosquito (std:: vector<frog> &f, std:: vector<mosquito> &m) {
-    std:: sort (f.begin(), f.end(), compare);
-
-    std:: set<int> uneaten_mosquitoes;
-
-    for (auto it = m.begin(); it != m.end(); it++) {
-        if (it -> size != -1) {        //mosquito not eaten yet
-
-
-            it -> size = -1;
-        }
-    }
-
-    for (auto it = f.begin(); it != f.end(); it++) {
-        printf("%d %d\n", it -> eaten, it -> t);
-    }   
+bool compare_i (frog f1, frog f2) {
+    return (f1.i < f2.i);
 }
 
+void eat (map<int64_t, frog>::iterator ub_frog, vector<frog> &f,
+         map<int64_t, frog> &bst_frog, multimap<int64_t, int64_t> &bst_mos) {
+    
+    //dynamic intervals
+    auto to_eat = bst_mos.lower_bound(ub_frog->first);
+    auto length = ub_frog->second.end;
+    
+    if (to_eat != bst_mos.end() && to_eat->first <= length) {
+        ub_frog->second.end += to_eat->second;
+        f[ub_frog->second.i].end += to_eat->second;
+        f[ub_frog->second.i].eaten++;
+        to_eat = bst_mos.erase(to_eat);
+
+        auto n = next(ub_frog);
+        bool del = true;
+        while (del) {
+            del = false;
+            if (n != bst_frog.end()) {
+                if (n->first <= ub_frog->second.end) {
+                    if (n->second.end <= ub_frog->second.end) {
+                        bst_frog.erase(n);
+                        n = next(ub_frog);
+                        del = true;
+                    }
+                    else {
+                        frog nf = frog (ub_frog->second.end+1, n->second.end, n->second.i, n->second.eaten);
+                        bst_frog.erase(n);
+                        bst_frog.insert(make_pair(nf.x, nf));
+                    }
+                }
+            }
+        }
+
+        return eat (ub_frog, f, bst_frog, bst_mos);       
+    }
+}
+
+void maxMosquito (vector<frog> f, vector<mosquito> m) {
+    sort (f.begin(), f.end(), compare);
+
+    map<int64_t, frog> bst_frog;
+    multimap<int64_t, int64_t> bst_mos;
+
+    bst_frog.insert(make_pair(f[0].x, f[0]));
+    auto prec = f[0].end;
+    for (int i = 1; i < f.size(); i++) {
+        //overlapping
+        if (f[i].end > prec) {
+            bst_frog.insert(make_pair(max(prec+1, f[i].x), f[i]));
+            prec = f[i].end;
+        }
+    }
+    
+    sort (f.begin(), f.end(), compare_i);
+    for (int i = 0; i < m.size(); i++) {
+        auto ub_frog = bst_frog.upper_bound(m[i].p);
+        ub_frog = prev(ub_frog);
+
+        if (ub_frog != bst_frog.end()) {
+            bst_mos.insert(make_pair(m[i].p, m[i].b));
+            eat (ub_frog, f, bst_frog, bst_mos);
+        }
+        else {
+            bst_mos.insert(make_pair(m[i].p, m[i].b));
+        }
+    }
+    
+    for (auto &frog : f) {
+        cout << frog.eaten << " " << (frog.end - frog.x) << endl;
+    }
+
+}
 
 int main (void) {
     std::ios_base::sync_with_stdio(false);
 
-    std:: vector<frog> frogs;
-    std:: vector<mosquito> mosquitoes;
+    vector<frog> frogs;
+    vector<mosquito> mosquitoes;
     
     int n = 0, m = 0;
-    scanf("%d", &n);
-    scanf("%d", &m);
+    cin >> n >> m;
 
     frogs.reserve(n);
     mosquitoes.reserve(m);
 
-    int x = 0, value = 0;
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &x);
-        scanf("%d", &value);
-
-        frogs.push_back(frog(x, value, 0));
+    int64_t x = 0, value = 0;
+    for (auto i = 0; i < n; i++) {
+        cin >> x >> value;        
+        frogs.push_back(frog(x, x+value, i, 0));
     }
 
     for (int i = 0; i < m; i++) {
-        scanf("%d", &x);
-        scanf("%d", &value);
-
+        cin >> x >> value;
         mosquitoes.push_back(mosquito(x, value));
     }
 
     maxMosquito (frogs, mosquitoes);
-
+   
     frogs.clear();
     mosquitoes.clear();
 

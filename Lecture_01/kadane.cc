@@ -1,10 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-
-// Function to find subarray with maximum sum
-// arr: input array
-// n: size of array
 int maxSubarraySum(int arr[], int n){
     
     int sum = arr[0];
@@ -24,22 +20,18 @@ int maxSubarraySum(int arr[], int n){
     }
     return max;
 }
-    
-int main()
-{
+
+int main() {
     int t,n;
     
-    cin>>t; //input testcases
-    while(t--) //while testcases exist
-    {
-        
-        cin>>n; //input size of array
-        
+    cin>>t;
+    while(t--) {
+        cin>>n;
         int a[n];
-        
+
         for(int i=0;i<n;i++)
-            cin>>a[i]; //inputting elements of array
-        
+            cin>>a[i];
+            
         cout << maxSubarraySum(a, n) << endl;
     }
 }
