@@ -1,83 +1,72 @@
-/*
- * Original problem at:
- * https://codeforces.com/contest/1398/problem/E?locale=en
- */
+#include <bits/stdc++.h>
+using namespace std;
 
+int main() {
+    ios_base::sync_with_stdio(false);
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
+    int64_t n = 0, tp = 0, d = 0;
+    cin >> n;
 
-
-struct spell {
-    int type;           // 0: fire, 1: lightning
-    unsigned long damage; 
-
-    spell(int t, unsigned long d) : type{t}, damage{d} {}
-} ;
-
-
-bool compare (spell sp1, spell sp2) {
-    return (sp1.type > sp2.type);
-}
-//return (sp1.type > sp2.type && sp1.damage > sp2.damage);
-
-void maxDamage (std:: vector<spell> &v) {
-    std:: sort(v.begin(), v.end(), compare);
-
-    bool doubleD = false;
-    unsigned long tot = 0;
-    for (auto it = v.begin(); it != v.end(); it++) {
-        if (doubleD) {
-            tot += 2 * (it -> damage);
-        }
-        else {
-            tot += it -> damage;
-        }
-
-        doubleD = (it -> type == 1)? true: false;
-    }
-
-    printf ("%lu \n", tot);
-}
-
-
-void forget (std:: vector<spell> &v, int tp, long int d) {
-    
-    for (auto it = v.begin(); it != v.end(); it++){
-        if (it->damage == abs(d) && it->type == tp) {
-            v.erase(it);
-            break;
-        }
-    }
-}
-
-
-int main (void) {
-    std::ios_base::sync_with_stdio(false);
-
-    std:: vector<spell> spells;
-    int n = 0, tp = 0;
-    long int d = 0;
-
-    scanf ("%d", &n);
-    spells.reserve(n);
+    int cnt = 0;
+    long long ans = 0;
+    set<long long> all, set_one, set_two;
 
     for (int i = 0; i < n; i++) {
-        scanf ("%d", &tp);
-        scanf ("%ld", &d);
+        cin >> tp >> d;
 
-        if (d < 0) 
-            forget (spells, tp, d);
+        ans += d;
+        if (d > 0) {
+            if (tp == 1)
+                cnt++;
+            else
+                all.insert(d);
+
+            if (set_one.size() && d <= *set_one.rbegin()) 
+                set_one.insert(d);
+            else {
+                set_two.insert(d);
+                ans += d;
+            }
+        } 
         else {
-            spell elem = spell (tp, d);
-            elem.type = (tp == 0)? 0: 1;
-            spells.push_back(elem);
+            if (tp == 1) 
+                cnt--;
+            else 
+                all.erase(-d);
+
+            if (set_one.size() && -d <= *set_one.rbegin()) 
+                set_one.erase(-d);
+            else {
+                set_two.erase(-d);
+                ans += d;
+            } 
         }
 
-        maxDamage(spells); 
+        while (set_two.size() > cnt) {
+            int x = *set_two.begin();
+            set_two.erase(x);
+            set_one.insert(x);
+            ans -= x;
+        }
+
+        while (set_two.size() < cnt) {
+            int x = *set_one.rbegin();
+            set_two.insert(x);
+            set_one.erase(x);
+            ans += x;
+        }
+        
+        long long x = 0;
+        if (set_two.size()) {
+            if (all.size()) {
+                x = min(x, *all.rbegin() - *set_two.begin());
+            }
+            else {
+                x = 0 - *set_two.begin();
+            } 
+        }
+        cout << ans + x << endl;
     }
 
-    spells.clear();
     return 0;
 }

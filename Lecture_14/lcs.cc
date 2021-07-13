@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <vector>
 
 const int mod=1e9+7;
 using namespace std;
@@ -26,9 +25,8 @@ int lcs(int x, int y, string s1, string s2){
     int c[x+1][y+1];
     memset(c, 0, sizeof c);
     
-    int i = 1, j = 1;
-    for (i = 1; i <= x; i++) {
-        for (j = 1; j <= y; j++) {
+    for (int i = 1; i <= x; i++) {
+        for (int j = 1; j <= y; j++) {
             if (s1[i-1] == s2[j-1]) {
                 c[i][j] = 1 + c[i-1][j-1];
             }
