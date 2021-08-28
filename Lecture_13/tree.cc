@@ -1,112 +1,121 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+vector<int> flat, tin, tout, colors;
+vector<vector<int>> tree;
+int idx = -1;
+int64_t block = 0;
+
 struct query {
-    int64_t l, r, k, idx;
+    int l, r, k, idx;
 };
 
-vector<int64_t> colors;                 
-vector<vector<int64_t>> tree;    
-vector<query> qs;  
-vector<int64_t> freq, freq_k, final;          
-vector<int64_t> l, r, flat_tree;               
-int64_t remap_idx = 0, block = 512, n, m;                
-
-void dfs(int64_t u, int64_t p) {
-    l[u] = ++remap_idx;
-    flat_tree[remap_idx] = colors[u];
-
-    for(int v : tree[u]) {
-        if(v != p) dfs(v, u);
-    }
-    r[u] = remap_idx;
-}
-
 bool compare (query q1, query q2) {
-    if (q1.l/block != q1.l/block)
+    if (q1.l/block != q2.l/block) {
         return q1.l/block < q2.l/block;
-
+    }
     return q1.r < q2.r;
 }
 
-void compute () {
-    sort (qs.begin(), qs.end(), compare);
+void dfs (int n, int p) {
+    tin[n] = ++idx;
+    flat[idx] = colors[n];
 
-    auto add = [&](int pos) {
-        freq[flat_tree[pos]]++;
-        freq_k[freq[flat_tree[pos]]]++;
-    };
-
-    auto remove = [&](int pos) {
-        freq_k[freq[flat_tree[pos]]]--;
-        freq[flat_tree[pos]]--;
-    };
-
-    int cl = qs[0].l;
-    int cr = cl-1;
-    for(int i = 0; i < m; i++) {
-        while(cl > qs[i].l) {
-            add(--cl);
+    for (auto it : tree[n]) {
+        if (it != p) {
+            dfs (it, n);
         }
-
-        while(cl < qs[i].l) {
-            remove(cl++);
-        }
-            
-        while(cr < qs[i].r) {
-            add(++cr);
-        }  
-            
-        while(cr > qs[i].r) {
-            remove(cl--);
-        }
-            
-        final[qs[i].idx] = freq_k[qs[i].k];
     }
-
-    for (int i = 0; i < m; i++) {
-        cout << final[i] << endl;
-    }
+    tout[n] = idx;
 }
 
-int main() {
-    ios_base::sync_with_stdio(false);
+void solve (vector<query> q) {
+    block = (int64_t) sqrt (tree.size());
+    sort (q.begin(), q.end(), compare);
 
+    vector<int> final;
+    final.assign(q.size(), 0);
+
+    vector<int> freq, freq_k;
+    freq.assign(1000001, 0);
+    freq_k.assign(1000001, 0);
+
+    auto add = [&] (int pos) {
+        freq[pos]++;
+        freq_k[freq[pos]]++;
+    };
+
+    auto remove = [&] (int pos) {
+        freq_k[freq[pos]]--;
+        freq[pos]--;
+    };
+
+    int cl = 0, cr = -1;
+    for (int i = 0; i < q.size(); i++) {
+        while (cl < q[i].l) {
+            //remove
+            remove (flat[cl]);
+            cl++;
+        }
+
+        while (cl > q[i].l) {
+            cl--;
+            //add
+            add (flat[cl]);
+        }
+
+        while (cr < q[i].r) {
+            cr++;
+            //add
+            add (flat[cr]);
+        }
+
+        while (cr > q[i].r) {
+            //remove
+            remove (flat[cr]);
+            cr--;   
+        }
+        final[q[i].idx] = freq_k[q[i].k];
+    }
+
+    for (auto it : final)
+        cout << it << endl;
+}
+
+int main () {
+
+    int n, m;
     cin >> n >> m;
 
-    colors.resize(n+1);
-    tree.resize(n+1);
-    qs.reserve(m);
-    l.resize(n+1, 0);
-    r.resize(n+1, 0);
-    flat_tree.resize(n+1, 0);
-    final.resize(m+1, 0);  
+    tree.resize(n);
+    tin.resize(n);
+    tout.resize(n);
+    flat.resize(n);
+    colors.resize(n);
 
-    freq.resize(1e5+1, 0);
-    freq_k.resize(1e5+1, 0);
-
-    for(int i = 0; i < n; i++) {
-        cin >> colors[i];
+    int a, b;
+    for (int i = 0; i < n; i++) {
+        cin >> a;
+        colors[i] = a;
     }
 
-    for(int i = 1; i < n; i++) {
-        int u = 0, v = 0;
-        cin >> u >> v;
-        u--; v--;
-        tree[u].push_back(v);
-        tree[v].push_back(u);
+    for (int i = 0; i < n-1; i++) {
+        cin >> a >> b;
+        a--; b--;
+        tree[a].emplace_back(b);
+        tree[b].emplace_back(a);
     }
 
-    dfs(0, -1);
+    dfs (0, -1);
 
-    for(int i = 0 ; i < m; i++) {
-        int vi, k;
-        cin >> vi >> k;
-        vi--;
-        qs.push_back(query{l[vi],r[vi], k, i});
+    vector<query> q;
+    for (int i = 0; i < m; i++) {
+        cin >> a >> b;
+        a--;
+        q.push_back(query{tin[a], tout[a], b, i});
     }
 
-    compute();
+    solve (q);
 
     return 0;
 }
