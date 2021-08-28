@@ -16,7 +16,7 @@ The complete [solution.](https://github.com/Claire-gip/CompetitiveProgramming-Un
 
 Since the queries do not change the values inside the intervals, it is possible to solve this problem using the `Mo's algorithm.`<br>
 First it is necessary to compute a DFS visit of the graph, in order to take the endpoints of the queries themselves; then, using two `frequency vectors` we are going to keep track of the colors of the nodes.<br>
-The first vector stores the frequency of the elements, meanwhile the second one stores the frequency of the colors. <br>
+The first vector stores the frequency of the elements, meanwhile the second one stores the number of frequencies. <br>
 
 **Time complexity:** θ((n+m) * sqrt(n)). <br>
 **Space complexity:** O(n).
